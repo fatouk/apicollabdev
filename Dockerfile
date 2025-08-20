@@ -5,9 +5,10 @@ FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 
 # Copier uniquement les fichiers Maven d'abord (pour cache build)
-COPY creafund-api/pom.xml .
-COPY creafund-api/.mvn .mvn
-COPY creafund-api/mvnw .
+#COPY creafund-api/pom.xml .
+#COPY creafund-api/.mvn .mvn
+#COPY creafund-api/mvnw .
+COPY . .
 
 # Donner les permissions d'exécution au wrapper Maven
 RUN chmod +x mvnw
@@ -16,7 +17,7 @@ RUN chmod +x mvnw
 RUN ./mvnw dependency:go-offline
 
 # Copier le reste du code
-COPY creafund-api/src ./src
+#COPY creafund-api/src ./src
 
 # Compiler le projet sans exécuter les tests
 RUN ./mvnw clean package -DskipTests
